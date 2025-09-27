@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  todo-app:
+    build: .
+    stdin_open: true
+    tty: true
+    environment:
+      DATABASE_URL: jdbc:postgresql://postgres:5432/todoapp?user=postgres&password=password
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - todo_network
+
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_DB: todoapp
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - todo_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+
+volumes:
+  postgres_data:
+
+networks:
+  todo_network:
