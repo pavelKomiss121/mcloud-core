@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  webapp:
+    image: ghcr.io/${GITHUB_USERNAME}/mcloud-core:latest
+    ports:
+      - "8080:8080"
+    environment:
+      - JAVA_OPTS=-Xmx128m
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 3s
+      retries: 3

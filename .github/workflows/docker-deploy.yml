@@ -1,0 +1,51 @@
+name: Docker Deploy to GHCR
+
+on:
+  push:
+    branches: [ @TODO ]
+    paths:
+      - 'optimization/**'
+      - '.github/workflows/docker-deploy.yml'
+
+env:
+  REGISTRY: @TODO
+  IMAGE_NAME: @TODO
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: @TODO
+      packages: @TODO
+
+    steps:
+      - name: Checkout code
+        uses: @TODO
+
+      - name: Set up Docker Buildx
+        uses: @TODO
+
+      - name: Log in to GitHub Container Registry
+        uses: @TODO
+        with:
+          registry: @TODO
+          username: @TODO
+          password: @TODO
+
+      - name: Extract metadata
+        id: meta
+        uses: @TODO
+        with:
+          images: @TODO
+          tags: |
+            type=raw,value=latest
+            type=sha,prefix={{branch}}-
+
+      - name: Build and push Docker image
+        uses: @TODO
+        with:
+          context: @TODO
+          file: @TODO
+          push: @TODO
+          tags: @TODO
+          labels: @TODO
