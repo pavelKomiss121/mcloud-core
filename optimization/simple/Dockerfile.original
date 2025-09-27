@@ -1,0 +1,7 @@
+FROM openjdk:21
+WORKDIR /app
+RUN mkdir -p ru/mentee/power
+COPY src/WebApp.java ru/mentee/power/
+RUN javac ru/mentee/power/WebApp.java
+EXPOSE 8080
+CMD ["java", "ru.mentee.power.WebApp"]
