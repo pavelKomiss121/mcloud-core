@@ -6,6 +6,7 @@ on:
     paths:
       - 'src/**'
       - 'deploy/**'
+      - 'networking/**'
       - '.github/workflows/docker-deploy.yml'
 
 env:
@@ -61,3 +62,39 @@ jobs:
           tags: |
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:todoapp
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:todoapp-${{ github.sha }}
+
+      - name: Build and push Gateway image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./networking
+          file: ./networking/Dockerfile
+          build-args: |
+            SERVICE=GatewayService
+          push: true
+          tags: |
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:gateway
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:gateway-${{ github.sha }}
+
+      - name: Build and push Processing image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./networking
+          file: ./networking/Dockerfile
+          build-args: |
+            SERVICE=ProcessingService
+          push: true
+          tags: |
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:processing
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:processing-${{ github.sha }}
+
+      - name: Build and push Storage image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./networking
+          file: ./networking/Dockerfile
+          build-args: |
+            SERVICE=StorageService
+          push: true
+          tags: |
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:storage
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:storage-${{ github.sha }}
