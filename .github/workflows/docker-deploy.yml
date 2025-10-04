@@ -68,8 +68,8 @@ jobs:
         with:
           context: ./networking
           file: ./networking/Dockerfile
-          build-args:
-            SERVICE: GatewayService
+          build-args: |
+            SERVICE=GatewayService
           push: true
           tags: |
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:gateway
@@ -80,8 +80,8 @@ jobs:
         with:
           context: ./networking
           file: ./networking/Dockerfile
-          build-args:
-            SERVICE: ProcessingService
+          build-args: |
+            SERVICE=ProcessingService
           push: true
           tags: |
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:processing
@@ -92,8 +92,8 @@ jobs:
         with:
           context: ./networking
           file: ./networking/Dockerfile
-          build-args:
-            SERVICE: StorageService
+          build-args: |
+            SERVICE=StorageService
           push: true
           tags: |
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:storage
