@@ -11,7 +11,7 @@ public class CalculatorV1 {
             String query = exchange.getRequestURI().getQuery();
             String[] params = query.split("&");
             int a = Integer.parseInt(params[0].split("=")[1]);
-            int a = Integer.parseInt(params[1].split("=")[1]);
+            int b = Integer.parseInt(params[1].split("=")[1]);
             String operator = params[2].split("=")[1];
             int result = 0;
             switch (operator) {
