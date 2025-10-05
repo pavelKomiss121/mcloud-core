@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web_server_dep
+  namespace: staging
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: web-server
+      version: v1.0
+  template:
+    metadata:
+      labels:
+        app: web-server
+        version: v1.0
+    spec:
+      containers:
+        - name: web-server
+          image: @TODO
+          ports:
+            - containerPort: 8080
+          env:
+            - name: JAVA_OPTS
+              value: "-XX:MaxRAMPercentage=75.0"

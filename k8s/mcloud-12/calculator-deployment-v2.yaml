@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: calculator2_dep
+  namespace: staging
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: calculator
+      version: v2.0
+  template:
+    metadata:
+      labels:
+        app: calculator
+        version: v2.0
+    spec:
+      containers:
+        - name: calculator
+          image: @TODO
+          ports:
+            - containerPort: 8080
+          env:
+            - name: JAVA_OPTS
+              value: "-XX:MaxRAMPercentage=75.0"
