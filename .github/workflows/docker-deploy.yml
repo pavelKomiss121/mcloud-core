@@ -7,6 +7,7 @@ on:
       - 'src/**'
       - 'deploy/**'
       - 'networking/**'
+      - 'services/**'
       - '.github/workflows/docker-deploy.yml'
 
 env:
