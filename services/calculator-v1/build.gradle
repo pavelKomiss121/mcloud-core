@@ -1,0 +1,39 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+group = 'ru.mentee.power'
+version = '1.0.0'
+sourceCompatibility = '21'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Нет внешних зависимостей - используем только стандартную библиотеку Java
+}
+
+application {
+    mainClass = 'ru.mentee.power.CalculatorV1'
+}
+
+jar {
+    manifest {
+        attributes(
+            'Main-Class': 'ru.mentee.power.CalculatorV1'
+        )
+    }
+}
+
+// Настройки для сборки
+compileJava {
+    options.encoding = 'UTF-8'
+}
+
+// Задача для запуска
+task runApp(type: JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'ru.mentee.power.CalculatorV1'
+}

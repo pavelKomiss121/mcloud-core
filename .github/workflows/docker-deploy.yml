@@ -2,7 +2,7 @@ name: Docker Deploy to GHCR
 
 on:
   push:
-    branches: [ master, main, feature/newDocker ]
+    branches: [ master, main, feature/newDocker, feature/mcloud12]
     paths:
       - 'src/**'
       - 'deploy/**'
@@ -98,3 +98,35 @@ jobs:
           tags: |
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:storage
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:storage-${{ github.sha }}
+            
+            
+
+      - name: Build and push Calculator1 image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./services/calculator-v1
+          file: ./services/calculator-v1/Dockerfile
+          push: true
+          tags: |
+            ${{ env.REGISTRY }}/calculator-v1:latest
+            ${{ env.REGISTRY }}/calculator-v1:${{ github.sha }}
+
+      - name: Build and push Calculator V2 image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./services/calculator-v2
+          file: ./services/calculator-v2/Dockerfile
+          push: true
+          tags: |
+            ${{ env.REGISTRY }}/calculator-v2:latest
+            ${{ env.REGISTRY }}/calculator-v2:${{ github.sha }}
+
+      - name: Build and push Web Server image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./services/web-server
+          file: ./services/web-server/Dockerfile
+          push: true
+          tags: |
+            ${{ env.REGISTRY }}/web-server:latest
+            ${{ env.REGISTRY }}/web-server:${{ github.sha }}
