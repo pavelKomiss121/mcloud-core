@@ -2,7 +2,7 @@ FROM openjdk:21-jdk-slim AS builder
 WORKDIR /build
 RUN apt-get update && apt-get install -y curl
 RUN curl -O https://jdbc.postgresql.org/download/postgresql-42.7.1.jar
-COPY src/TodoApp.java ./
+COPY src/ru/mentee/power/TodoApp.java ./
 RUN javac -cp ".:postgresql-42.7.1.jar" TodoApp.java
 
 FROM eclipse-temurin:21-jre-alpine
