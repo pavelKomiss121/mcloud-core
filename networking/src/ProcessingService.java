@@ -41,7 +41,14 @@ public class ProcessingService {
         });
 
         server.createContext("/health", exchange -> {
-            String response = "{\"status\":\"UP\",\"service\":\"processing\"}";
+            String response = """
+                {
+                    "status": "UP",
+                    "service": "processing",
+                    "timestamp": %d,
+                    "version": "1.0.0"
+                }
+                """.formatted(System.currentTimeMillis());
             exchange.getResponseHeaders().set("Content-Type", "application/json");
             exchange.sendResponseHeaders(200, response.length());
             exchange.getResponseBody().write(response.getBytes());

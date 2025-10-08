@@ -17,13 +17,25 @@ public class StorageService {
             try {
                 String data = getAllData();
                 System.out.println("Storage /data called, returning: " + data);
-                String response = "{\"data\":" + data + ",\"status\":\"success\"}";
+                String response = """
+                    {
+                        "data": %s,
+                        "status": "success",
+                        "timestamp": %d
+                    }
+                    """.formatted(data, System.currentTimeMillis());
                 exchange.getResponseHeaders().set("Content-Type", "application/json");
                 exchange.sendResponseHeaders(200, response.length());
                 exchange.getResponseBody().write(response.getBytes());
             } catch (Exception e) {
                 System.out.println("Storage /data error: " + e.getMessage());
-                String error = "{\"error\":\"" + e.getMessage() + "\",\"status\":\"error\"}";
+                String error = """
+                    {
+                        "error": "%s",
+                        "status": "error",
+                        "timestamp": %d
+                    }
+                    """.formatted(e.getMessage(), System.currentTimeMillis());
                 exchange.getResponseHeaders().set("Content-Type", "application/json");
                 exchange.sendResponseHeaders(500, error.length());
                 exchange.getResponseBody().write(error.getBytes());
