@@ -1,8 +1,8 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: web_server_service
-  namespace: staging
+  name: web-server-service
+  namespace: mcloud-12-calculator
 spec:
   selector:
     app: web-server

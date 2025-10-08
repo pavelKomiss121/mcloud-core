@@ -1,8 +1,8 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: web_server_dep
-  namespace: staging
+  name: web-server-dep
+  namespace: mcloud-12-calculator
 spec:
   replicas: 3
   selector:
@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: web-server
-          image: @TODO
+          image: ghcr.io/pavelkomiss121/mcloud-core:web-server
           ports:
             - containerPort: 8080
           env:

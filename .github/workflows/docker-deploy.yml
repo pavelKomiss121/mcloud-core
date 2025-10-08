@@ -2,7 +2,7 @@ name: Docker Deploy to GHCR
 
 on:
   push:
-    branches: [ master, main, feature/newDocker, feature/mcloud12]
+    branches: [ master, main, feature/*]
     paths:
       - 'src/**'
       - 'deploy/**'
