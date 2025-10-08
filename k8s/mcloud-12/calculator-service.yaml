@@ -1,8 +1,8 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: calculator_service
-  namespace: staging
+  name: calculator-service
+  namespace: mcloud-12-calculator
 spec:
   selector:
     app: calculator

@@ -1,6 +1,8 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: staging
+  name: mcloud-12-calculator
   labels:
-    name: staging
+    environment: staging
+    tier: frontend
+    service: webapp
