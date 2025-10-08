@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: mc-13-calculator
+  labels:
+    environment: development
+    tier: backend
+    service: calculator

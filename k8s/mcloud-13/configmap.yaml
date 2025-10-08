@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: calculator-config
+  namespace: mc-13-calculator
+data:
+  # Переменные окружения
+  SERVER_PORT: "8080"
+  LOG_LEVEL: "INFO"
+  DATABASE_HOST: "postgres-service"
+  DATABASE_PORT: "5432"
+  DATABASE_NAME: "calculator_db"
+  CACHE_ENABLED: "true"
+
+  # Файлы конфигурации
+  application.properties: |
+    server.port=8080
+    app.name=MP Calculator Service
+    app.version=1.0
+    database.host=postgres-service
+    database.port=5432
+    database.name=calculator_db
+    cache.enabled=true
+    cache.ttl=3600
+    logging.level=INFO
+
+  database.properties: |
+    db.connection.pool.size=10
+    db.connection.timeout=30000
+    db.query.timeout=60000
+    db.retry.attempts=3
+    db.transaction.isolation=READ_COMMITTED
+    db.auto-commit=false
+    db.logging.enabled=true
+    db.pool.min=5
+    db.pool.max=20

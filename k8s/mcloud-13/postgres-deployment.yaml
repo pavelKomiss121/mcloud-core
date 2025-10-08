@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres-mc13-dep
+  namespace: mc-13-calculator
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: postgres-mc13
+  template:
+    metadata:
+      labels:
+        app: postgres-mc13
+    spec:
+      containers:
+        - name: postgres-mc13
+          image: @TODO
+
+          # Переменные из ConfigMap и Secret
+          env:
+            - name: DATABASE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: calculator-secrets
+                  key: db-password
+
+          # Все переменные из ConfigMap
+          envFrom:
+            - configMapRef:
+                name: calculator-config
+
+          # Монтирование файлов
+          volumeMounts:
+            - name: config-volume
+              mountPath: /etc/postgresql/postgresql.conf.d/
+            - name: secret-volume
+              mountPath: /run/secrets/
+              readOnly: true
+
+      volumes:
+        - name: config-volume
+          configMap:
+            name: calculator-config
+        - name: secret-volume
+          secret:
+            secretName: calculator-secrets
