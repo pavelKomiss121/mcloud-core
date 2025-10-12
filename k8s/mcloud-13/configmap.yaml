@@ -7,7 +7,7 @@ data:
   # Переменные окружения
   SERVER_PORT: "8080"
   LOG_LEVEL: "INFO"
-  DATABASE_HOST: "postgres-service"
+  DATABASE_HOST: "postgres-mc13-service"
   DATABASE_PORT: "5432"
   DATABASE_NAME: "calculator_db"
   CACHE_ENABLED: "true"
@@ -17,7 +17,7 @@ data:
     server.port=8080
     app.name=MP Calculator Service
     app.version=1.0
-    database.host=postgres-service
+    database.host=postgres-mc13-service
     database.port=5432
     database.name=calculator_db
     cache.enabled=true

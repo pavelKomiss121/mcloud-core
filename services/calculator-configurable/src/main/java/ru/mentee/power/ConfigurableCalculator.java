@@ -5,6 +5,7 @@ import com.sun.net.httpserver.HttpServer;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.InetSocketAddress;
+import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -30,6 +31,9 @@ public class ConfigurableCalculator {
       try {
         String response = String.format("""
             <html>
+            <head>
+                <meta charset="UTF-8">
+            </head>
             <body>
                 <h1>Configurable Calculator</h1>
                 <h2>Информация о конфигурации:</h2>
@@ -48,13 +52,15 @@ public class ConfigurableCalculator {
             </body>
             </html>
             """, getConfig("SERVER_PORT", "8080"), getConfig("DATABASE_HOST", "localhost"), getConfig("DATABASE_PORT", "5432"), getConfig("DATABASE_NAME", "calculator_db"), getConfig("LOG_LEVEL", "INFO"), getConfig("CACHE_ENABLED", "false"), dbConnection != null ? "Подключена" : "Не подключена");
-        exchange.getResponseHeaders().add("Content-Type", "text/html");
-        exchange.sendResponseHeaders(200, response.length());
-        exchange.getResponseBody().write(response.getBytes());
+        byte[] responseBytes = response.getBytes(StandardCharsets.UTF_8);
+        exchange.getResponseHeaders().add("Content-Type", "text/html; charset=UTF-8");
+        exchange.sendResponseHeaders(200, responseBytes.length);
+        exchange.getResponseBody().write(responseBytes);
       } catch (Exception e) {
         String errorResponse = "Ошибка: " + e.getMessage();
-        exchange.sendResponseHeaders(500, errorResponse.getBytes().length);
-        exchange.getResponseBody().write(errorResponse.getBytes());
+        byte[] errorBytes = errorResponse.getBytes(StandardCharsets.UTF_8);
+        exchange.sendResponseHeaders(500, errorBytes.length);
+        exchange.getResponseBody().write(errorBytes);
       } finally {
         exchange.close();
       }
@@ -66,8 +72,9 @@ public class ConfigurableCalculator {
         String query = exchange.getRequestURI().getQuery();
         if (query == null || !query.startsWith("expr=")) {
           String errorResponse = "Ошибка: Необходим параметр expr";
-          exchange.sendResponseHeaders(400, errorResponse.getBytes().length);
-          exchange.getResponseBody().write(errorResponse.getBytes());
+          byte[] errorBytes = errorResponse.getBytes(StandardCharsets.UTF_8);
+          exchange.sendResponseHeaders(400, errorBytes.length);
+          exchange.getResponseBody().write(errorBytes);
           return;
         }
         String expr = query.substring("expr=".length());
@@ -80,20 +87,24 @@ public class ConfigurableCalculator {
         }
         String response = String.format("""
             <html>
+            <head>
+                <meta charset="UTF-8">
+            </head>
             <body>
                 <h2>Результат вычисления</h2>
                 <p><strong>Выражение:</strong> %s</p>
                 <p><strong>Результат:</strong> %.2f</p>
-                <p><strong>Сохранено в БД:</strong> %s</p>
+                <p><strong>Saved to DB:</strong> %s</p>
                 <hr>
                 <a href="/">Назад на главную</a>
             </body>
             </html>
-            """, expr, result, saved ? "Да" : "Нет");
+            """, expr, result, saved ? "Yes" : "No");
 
-        exchange.getResponseHeaders().add("Content-Type", "text/html");
-        exchange.sendResponseHeaders(200, response.getBytes().length);
-        exchange.getResponseBody().write(response.getBytes());
+        byte[] responseBytes = response.getBytes(StandardCharsets.UTF_8);
+        exchange.getResponseHeaders().add("Content-Type", "text/html; charset=UTF-8");
+        exchange.sendResponseHeaders(200, responseBytes.length);
+        exchange.getResponseBody().write(responseBytes);
       } catch (Exception e) {
         e.printStackTrace();
       } finally {
@@ -115,12 +126,14 @@ public class ConfigurableCalculator {
             }
             """, getConfig("SERVER_PORT", "8080"), getConfig("DATABASE_HOST", "localhost"), getConfig("DATABASE_PORT", "5432"), getConfig("DATABASE_NAME", "calculator_db"), getConfig("LOG_LEVEL", "INFO"), getConfig("CACHE_ENABLED", "false"), dbConnection != null);
         exchange.getResponseHeaders().add("Content-Type", "application/json");
-        exchange.sendResponseHeaders(200, response.getBytes().length);
-        exchange.getResponseBody().write(response.getBytes());
+        byte[] responseBytes = response.getBytes(StandardCharsets.UTF_8);
+        exchange.sendResponseHeaders(200, responseBytes.length);
+        exchange.getResponseBody().write(responseBytes);
       } catch (Exception e) {
         String errorResponse = "Ошибка: " + e.getMessage();
-        exchange.sendResponseHeaders(500, errorResponse.getBytes().length);
-        exchange.getResponseBody().write(errorResponse.getBytes());
+        byte[] errorBytes = errorResponse.getBytes(StandardCharsets.UTF_8);
+        exchange.sendResponseHeaders(500, errorBytes.length);
+        exchange.getResponseBody().write(errorBytes);
       } finally {
         exchange.close();
       }
@@ -144,14 +157,16 @@ public class ConfigurableCalculator {
             }
             """, apiKey.length());
         exchange.getResponseHeaders().add("Content-Type", "application/json");
-        exchange.sendResponseHeaders(200, response.getBytes().length);
-        exchange.getResponseBody().write(response.getBytes());
+        byte[] responseBytes = response.getBytes(StandardCharsets.UTF_8);
+        exchange.sendResponseHeaders(200, responseBytes.length);
+        exchange.getResponseBody().write(responseBytes);
 
       } catch (Exception e) {
         e.printStackTrace();
         String errorResponse = "Ошибка: " + e.getMessage();
-        exchange.sendResponseHeaders(500, errorResponse.getBytes().length);
-        exchange.getResponseBody().write(errorResponse.getBytes());
+        byte[] errorBytes = errorResponse.getBytes(StandardCharsets.UTF_8);
+        exchange.sendResponseHeaders(500, errorBytes.length);
+        exchange.getResponseBody().write(errorBytes);
       } finally {
         exchange.close();
       }

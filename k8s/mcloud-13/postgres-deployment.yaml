@@ -4,7 +4,7 @@ metadata:
   name: postgres-mc13-dep
   namespace: mc-13-calculator
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: postgres-mc13
@@ -16,32 +16,21 @@ spec:
       containers:
         - name: postgres-mc13
           image: postgres:13
-
-          # Переменные из ConfigMap и Secret
           env:
-            - name: DATABASE_PASSWORD
+            - name: POSTGRES_DB
+              value: "calculator_db"
+            - name: POSTGRES_USER
+              value: "calculator_user"
+            - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: calculator-secrets
                   key: db-password
-
-          # Все переменные из ConfigMap
-          envFrom:
-            - configMapRef:
-                name: calculator-config
-
-          # Монтирование файлов
+          ports:
+            - containerPort: 5432
           volumeMounts:
-            - name: config-volume
-              mountPath: /etc/postgresql/postgresql.conf.d/
-            - name: secret-volume
-              mountPath: /run/secrets/
-              readOnly: true
-
+            - name: postgres-storage
+              mountPath: /var/lib/postgresql/data
       volumes:
-        - name: config-volume
-          configMap:
-            name: calculator-config
-        - name: secret-volume
-          secret:
-            secretName: calculator-secrets
+        - name: postgres-storage
+          emptyDir: {}

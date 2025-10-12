@@ -25,6 +25,12 @@ spec:
                   name: calculator-secrets
                   key: db-password
 
+            - name: API_KEY
+              valueFrom:
+                  secretKeyRef:
+                    name: calculator-secrets
+                    key: api-key
+
           # Все переменные из ConfigMap
           envFrom:
             - configMapRef:
