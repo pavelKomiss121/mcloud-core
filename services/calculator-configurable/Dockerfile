@@ -22,5 +22,7 @@ ENV DATABASE_NAME=calculator_db
 ENV DATABASE_USER=calculator_user
 ENV LOG_LEVEL=INFO
 ENV CACHE_ENABLED=false
+ENV LANG=C.UTF-8
+ENV LC_ALL=C.UTF-8
 
 CMD ["java", "-jar", "app.jar"]

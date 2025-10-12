@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: calculator-mc13
-          image: @TODO
+          image: ghcr.io/pavelkomiss121/mcloud-core:calculator-configurable
 
           # Переменные из ConfigMap и Secret
           env:

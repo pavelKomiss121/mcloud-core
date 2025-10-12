@@ -4,7 +4,7 @@ metadata:
   name: postgres-mc13-dep
   namespace: mc-13-calculator
 spec:
-  replicas: 3
+  replicas: 2
   selector:
     matchLabels:
       app: postgres-mc13
@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: postgres-mc13
-          image: @TODO
+          image: postgres:13
 
           # Переменные из ConfigMap и Secret
           env:
