@@ -130,8 +130,8 @@ jobs:
           file: ./services/calculator-configurable/Dockerfile
           push: true
           tags: |
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:calculator-configurable
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:calculator-configurable-${{ github.sha }}
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:calculator-configurable-1
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:calculator-configurable-1-${{ github.sha }}
 
       - name: Build and push Web Server image
         uses: docker/build-push-action@v5
