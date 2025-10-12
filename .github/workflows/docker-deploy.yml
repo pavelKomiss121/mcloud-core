@@ -122,6 +122,17 @@ jobs:
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:calculator-v2
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:calculator-v2-${{ github.sha }}
 
+
+      - name: Build and push ConfigurableCalculator image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./services/calculator-configurable
+          file: ./services/calculator-configurable/Dockerfile
+          push: true
+          tags: |
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:calculator-configurable
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:calculator-configurable-${{ github.sha }}
+
       - name: Build and push Web Server image
         uses: docker/build-push-action@v5
         with:
@@ -132,12 +143,3 @@ jobs:
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:web-server
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:web-server-${{ github.sha }}
 
-      - name: Build and push ConfigurableCalculator image
-          uses: docker/build-push-action@v5
-          with:
-            context: ./services/calculator-configurable
-            file: ./services/calculator-configurable/Dockerfile
-            push: true
-            tags: |
-              ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:calculator-configurable
-              ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:calculator-configurable-${{ github.sha }}
