@@ -1,0 +1,21 @@
+plugins {
+    id 'java'
+}
+
+group = 'ru.mentee.power'
+version = '1.0.0'
+
+repositories {
+    mavenCentral()
+}
+
+subprojects {
+    apply plugin: 'java'
+    
+    sourceCompatibility = '21'
+    targetCompatibility = '21'
+    
+    repositories {
+        mavenCentral()
+    }
+}

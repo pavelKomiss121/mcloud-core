@@ -6,28 +6,32 @@ plugins {
 group = 'ru.mentee.power'
 version = '1.0.0'
 sourceCompatibility = '21'
+targetCompatibility = '21'
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    // Нет внешних зависимостей - используем только стандартную библиотеку Java
+    implementation 'org.postgresql:postgresql:42.7.1'
 }
 
 application {
-    mainClass = 'ru.mentee.power.SimpleWebServer'
+    mainClass = 'ru.mentee.power.ConfigurableCalculator'
 }
 
 jar {
     manifest {
         attributes(
-                'Main-Class': 'ru.mentee.power.SimpleWebServer'
+                'Main-Class': 'ru.mentee.power.ConfigurableCalculator'
         )
     }
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 
-// Настройки для сборки
 compileJava {
     options.encoding = 'UTF-8'
 }
@@ -35,5 +39,5 @@ compileJava {
 // Задача для запуска
 task runApp(type: JavaExec) {
     classpath = sourceSets.main.runtimeClasspath
-    mainClass = 'ru.mentee.power.SimpleWebServer'
+    mainClass = 'ru.mentee.power.ConfigurableCalculator'
 }
