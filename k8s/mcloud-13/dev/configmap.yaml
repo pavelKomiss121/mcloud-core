@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: calculator-config
+  namespace: mcloud-dev
+data:
+  # Переменные окружения
+  SERVER_PORT: "8080"
+  LOG_LEVEL: "DEBUG"
+  DATABASE_HOST: "postgres-dev-service"
+  DATABASE_PORT: "5432"
+  DATABASE_NAME: "calculator_dev_db"
+  CACHE_ENABLED: "false"
+
+  # Файлы конфигурации
+  application.properties: |
+    server.port=8080
+    app.name=MP Calculator Service (DEV)
+    app.version=1.0-dev
+    database.host=postgres-dev-service
+    database.port=5432
+    database.name=calculator_dev_db
+    cache.enabled=false
+    cache.ttl=300
+    logging.level=DEBUG
+    debug.mode=true
+    test.data.enabled=true
+
+  database.properties: |
+    db.connection.pool.size=5
+    db.connection.timeout=10000
+    db.query.timeout=30000
+    db.retry.attempts=1
+    db.transaction.isolation=READ_UNCOMMITTED
+    db.auto-commit=true
+    db.logging.enabled=true
+    db.pool.min=2
+    db.pool.max=10

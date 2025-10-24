@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: calculator-config
+  namespace: mcloud-prod
+data:
+  SERVER_PORT: "8080"
+  LOG_LEVEL: "INFO"
+  DATABASE_HOST: "postgres-prod-service"
+  DATABASE_PORT: "5432"
+  DATABASE_NAME: "calculator_prod_db"
+  CACHE_ENABLED: "true"
+
+  application.properties: |
+    server.port=8080
+    app.name=MP Calculator Service (PROD)
+    app.version=1.0
+    database.host=postgres-prod-service
+    database.port=5432
+    database.name=calculator_prod_db
+    cache.enabled=true
+    cache.ttl=7200
+    logging.level=INFO
+    debug.mode=false
+    test.data.enabled=false
+    monitoring.enabled=true
+    metrics.collection=true
+
+  database.properties: |
+    db.connection.pool.size=20
+    db.connection.timeout=30000
+    db.query.timeout=60000
+    db.retry.attempts=5
+    db.transaction.isolation=READ_COMMITTED
+    db.auto-commit=false
+    db.logging.enabled=false
+    db.pool.min=10
+    db.pool.max=50

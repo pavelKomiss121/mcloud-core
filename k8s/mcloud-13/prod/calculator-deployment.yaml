@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: calculator-mc13-dep
+  namespace: mcloud-prod
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: calculator-mc13
+  template:
+    metadata:
+      labels:
+        app: calculator-mc13
+    spec:
+      containers:
+        - name: calculator-mc13
+          image: ghcr.io/pavelkomiss121/mcloud-core:calculator-configurable-1
+
+          # Переменные из ConfigMap и Secret
+          env:
+            - name: DATABASE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: calculator-secrets
+                  key: db-password
+
+            - name: API_KEY
+              valueFrom:
+                  secretKeyRef:
+                    name: calculator-secrets
+                    key: api-key
+
+          # Все переменные из ConfigMap
+          envFrom:
+            - configMapRef:
+                name: calculator-config
+
+          # Монтирование файлов
+          volumeMounts:
+            - name: config-volume
+              mountPath: /app/config
+            - name: secret-volume
+              mountPath: /app/secrets
+              readOnly: true
+
+      volumes:
+        - name: config-volume
+          configMap:
+            name: calculator-config
+        - name: secret-volume
+          secret:
+            secretName: calculator-secrets
+

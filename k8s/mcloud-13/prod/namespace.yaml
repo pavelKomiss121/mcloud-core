@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: mcloud-prod
+  labels:
+    environment: production
+    tier: backend
+    service: calculator
+    team: mcloud
+

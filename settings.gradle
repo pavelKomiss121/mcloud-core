@@ -1,0 +1,6 @@
+rootProject.name = 'mcloud-core'
+
+include 'services:calculator-v1'
+include 'services:calculator-v2'
+include 'services:web-server'
+include 'services:calculator-configurable'
