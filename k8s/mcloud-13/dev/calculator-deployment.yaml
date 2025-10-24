@@ -2,9 +2,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: calculator-mc13-dep
-  namespace: mc-13-calculator
+  namespace: mcloud-dev
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: calculator-mc13
@@ -51,3 +51,4 @@ spec:
         - name: secret-volume
           secret:
             secretName: calculator-secrets
+

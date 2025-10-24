@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: postgres-mc13-dep
-  namespace: mc-13-calculator
+  namespace: mcloud-prod
 spec:
   replicas: 1
   selector:
@@ -34,3 +34,4 @@ spec:
       volumes:
         - name: postgres-storage
           emptyDir: {}
+
