@@ -7,9 +7,9 @@ data:
   # Переменные окружения
   SERVER_PORT: "8080"
   LOG_LEVEL: "DEBUG"
-  DATABASE_HOST: "postgres-dev-service"
+  DATABASE_HOST: "postgres-mc13-service"
   DATABASE_PORT: "5432"
-  DATABASE_NAME: "calculator_dev_db"
+  DATABASE_NAME: "calculator_db"
   CACHE_ENABLED: "false"
 
   # Файлы конфигурации
@@ -17,9 +17,9 @@ data:
     server.port=8080
     app.name=MP Calculator Service (DEV)
     app.version=1.0-dev
-    database.host=postgres-dev-service
+    database.host=postgres-mc13-service
     database.port=5432
-    database.name=calculator_dev_db
+    database.name=calculator_db
     cache.enabled=false
     cache.ttl=300
     logging.level=DEBUG
